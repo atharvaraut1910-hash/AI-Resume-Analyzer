@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resume History</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+
+            <a class="navbar-brand" href="/">
+                🤖 AI Resume Analyzer
+            </a>
+
+            <div class="navbar-nav ms-auto">
+
+                <a class="nav-link" href="/">
+                    Home
+                </a>
+
+                <a class="nav-link" href="/upload/">
+                    Upload Resume
+                </a>
+
+                <a class="nav-link active" href="/history/">
+                    Resume History
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+
+        <div class="card shadow p-4">
+
+            <h2 class="text-center mb-4">
+                📄 Resume History
+            </h2>
+
+            <!-- Dashboard Cards -->
+
+            <div class="row mb-4">
+
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white text-center p-3">
+                        <h5>Total Resumes</h5>
+                        <h2>{{ total_resumes }}</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-success text-white text-center p-3">
+                        <h5>Average ATS</h5>
+                        <h2>{{ average_ats }}%</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-warning text-dark text-center p-3">
+                        <h5>Highest ATS</h5>
+                        <h2>{{ highest_ats }}%</h2>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Resume Table -->
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Resume</th>
+                        <th>ATS Score</th>
+                        <th>Job Match</th>
+                        <th>Uploaded At</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for resume in resumes %}
+
+                    <tr>
+
+                        <td>{{ resume.resume_name }}</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                {{ resume.ats_score }}/100
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-info">
+                                {{ resume.job_match }}%
+                            </span>
+                        </td>
+
+                        <td>{{ resume.uploaded_at }}</td>
+
+                        <td>
+
+                            <a href="{% url 'download_report' resume.id %}"
+                               class="btn btn-success btn-sm">
+
+                                📄 Download PDF
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="5" class="text-center text-danger">
+
+                            No Resume Found
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <a href="/upload/" class="btn btn-primary">
+
+                Upload New Resume
+
+            </a>
+
+        </div>
+
+    </div>
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p class="mb-0">
+        © 2026 AI Resume Analyzer | Developed by Atharva Raut
+    </p>
+</footer>
+
+</body>
+
+</html>

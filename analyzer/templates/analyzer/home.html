@@ -1,0 +1,88 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            🤖 AI Resume Analyzer
+        </a>
+
+        <div class="navbar-nav ms-auto">
+
+            <a class="nav-link" href="/">
+                Home
+            </a>
+
+            <a class="nav-link" href="/upload/">
+                Upload Resume
+            </a>
+
+            <a class="nav-link" href="/history/">
+                Resume History
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+    <!-- Navbar Start -->
+
+    <nav>
+
+        <div class="logo">
+            AI Resume Analyzer
+        </div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Upload Resume</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+
+    </nav>
+
+    <!-- Navbar End -->
+
+
+    <!-- Hero Section Start -->
+
+    <div class="container">
+
+        <h1>Welcome to AI Resume Analyzer</h1>
+
+        <p>
+            Upload your resume and get an AI-powered resume analysis,
+            ATS score, skill match, and improvement suggestions.
+        </p>
+
+        <a href="{% url 'upload' %}">
+    <button>Upload Resume</button>
+</a>
+
+    </div>
+
+    <!-- Hero Section End -->
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p class="mb-0">
+        © 2026 AI Resume Analyzer | Developed by Atharva Raut
+    </p>
+</footer>
+
+</body>
+
+</html>

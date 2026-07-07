@@ -1,0 +1,75 @@
+import os
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+# Load .env
+load_dotenv()
+
+# API Key
+api_key = os.getenv("GOOGLE_API_KEY")
+
+# Configure Gemini
+genai.configure(api_key=api_key)
+
+# Model
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+
+def analyze_resume(resume_text):
+
+    prompt = f"""
+You are an expert ATS Resume Analyzer.
+
+Analyze the resume and return ONLY in this format.
+
+Resume Summary:
+(Write a professional summary in 3-4 lines.)
+
+Strengths:
+- Point 1
+- Point 2
+- Point 3
+
+Weaknesses:
+- Point 1
+- Point 2
+
+Suggestions:
+- Point 1
+- Point 2
+- Point 3
+
+Recommended Job Roles:
+- Role 1
+- Role 2
+- Role 3
+
+Resume:
+
+{resume_text}
+"""
+
+    response = model.generate_content(prompt)
+
+    return response.text
+
+
+def generate_cover_letter(resume_text, job_description):
+
+    prompt = f"""
+You are an HR Manager.
+
+Generate a professional cover letter based on the following resume and job description.
+
+Resume:
+{resume_text}
+
+Job Description:
+{job_description}
+
+Write a one-page professional cover letter.
+"""
+
+    response = model.generate_content(prompt)
+
+    return response.text
