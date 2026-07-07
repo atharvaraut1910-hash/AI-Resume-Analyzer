@@ -9,7 +9,11 @@ SECRET_KEY = 'django-insecure-2*1i_^r@1_x9c!-(ijanij@e)prpszbj+kk_f@pjnv3tl$ri^d
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "ai-resume-analyzer-80c4.onrender.com",
+]
 
 
 # Application definition
@@ -98,6 +102,7 @@ USE_TZ = True
 # Static Files
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
     BASE_DIR / "analyzer" / "static",
