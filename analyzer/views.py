@@ -1,7 +1,7 @@
 from django.http import FileResponse
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
-
+from django.contrib.auth.decorators import login_required
 
 from .pdf_generator import generate_pdf
 from .models import ResumeAnalysis
@@ -76,6 +76,7 @@ def upload_resume(request):
     return render(request, "analyzer/upload.html", context)
 
 
+@login_required
 def history(request):
 
     resumes = ResumeAnalysis.objects.all().order_by("-uploaded_at")
