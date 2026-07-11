@@ -1,7 +1,7 @@
 from django.http import FileResponse
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .pdf_generator import generate_pdf
 from .models import ResumeAnalysis
@@ -58,7 +58,6 @@ def upload_resume(request):
             ai_analysis=ai_analysis,
         )
 
-        # Send to HTML
         context = {
             "filename": filename,
             "file_url": file_url,
@@ -76,7 +75,7 @@ def upload_resume(request):
     return render(request, "analyzer/upload.html", context)
 
 
-@login_required
+@staff_member_required(login_url="/admin/login/")
 def history(request):
 
     resumes = ResumeAnalysis.objects.all().order_by("-uploaded_at")
@@ -85,13 +84,13 @@ def history(request):
 
     if total_resumes > 0:
         average_ats = round(
-            sum(r.ats_score for r in resumes) / total_resumes
+            sum(r.ats_score for r in resumes) / total_resumes,
+            2
         )
 
         highest_ats = max(r.ats_score for r in resumes)
 
     else:
-
         average_ats = 0
         highest_ats = 0
 
@@ -102,7 +101,11 @@ def history(request):
         "highest_ats": highest_ats,
     }
 
-    return render(request, "analyzer/history.html", context)
+    return render(
+        request,
+        "analyzer/history.html",
+        context
+    )
 
 
 def download_report(request, id):

@@ -49,9 +49,23 @@ Resume:
 {resume_text}
 """
 
-    response = model.generate_content(prompt)
+    try:
+        response = model.generate_content(prompt)
+        return response.text
 
-    return response.text
+    except Exception as e:
+        print("Gemini Error:", e)
+
+        return """
+⚠️ AI service is temporarily unavailable.
+
+Possible Reasons:
+• Daily API quota exceeded
+• Internet connection issue
+• Google Gemini server unavailable
+
+Please try again after a few minutes.
+"""
 
 
 def generate_cover_letter(resume_text, job_description):
@@ -70,6 +84,20 @@ Job Description:
 Write a one-page professional cover letter.
 """
 
-    response = model.generate_content(prompt)
+    try:
+        response = model.generate_content(prompt)
+        return response.text
 
-    return response.text
+    except Exception as e:
+        print("Gemini Error:", e)
+
+        return """
+⚠️ Cover Letter could not be generated.
+
+Possible Reasons:
+• Daily API quota exceeded
+• Internet connection issue
+• Google Gemini server unavailable
+
+Please try again later.
+"""
